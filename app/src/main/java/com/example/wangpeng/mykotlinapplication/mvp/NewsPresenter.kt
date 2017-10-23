@@ -16,11 +16,11 @@ class NewsPresenter constructor(val model: NewsContract.Model?, val view: NewsCo
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ res ->
-                    if (res?.error_code == 0) {
+                    if (res?.error == 0) {
                         if (view!!.isActive()) {
                             view.showNewsList(res)
                         }
-                        res?.listResultNews.map {
+                        res?.result.map {
                             Log.i(NewsPresenter::class.java.simpleName, "${it}")
                         }
 

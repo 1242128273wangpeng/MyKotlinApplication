@@ -36,11 +36,11 @@ class MainFragment : Fragment(), NewsContract.View{
     }
 
     override fun showNewsList(result: Result) {
-        Toast.makeText(context,result.reason,Toast.LENGTH_SHORT)
+        Toast.makeText(context, result?.result.toString(),Toast.LENGTH_SHORT).show()
     }
 
     override fun showError(error: String) {
-        Toast.makeText(context,error,Toast.LENGTH_SHORT)
+        Toast.makeText(context,error,Toast.LENGTH_SHORT).show()
     }
 
 
