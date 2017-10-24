@@ -10,7 +10,7 @@ import io.reactivex.Observable
  */
 class NewsModel constructor():NewsContract.Model {
      override fun getNewListTask():Flowable<Result>{
-      return HttpManage.INSTANCE.provideApi().getNews(HttpManage.APPKEY)
+      return HttpManage.getHttpManage().provideApi().getNews()
     }
 
 }

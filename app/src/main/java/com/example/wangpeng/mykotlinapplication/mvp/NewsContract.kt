@@ -9,17 +9,16 @@ import io.reactivex.Flowable
  * Created by WangPeng on 2017/10/21.
  */
 interface NewsContract {
+
     interface View : BaseView<Presenter> {
-        fun showNewsList(result:Result): Unit
-        fun isActive(): Boolean
-        fun showError(error:String)
+        fun showNewsList(result: Result): Unit
     }
 
     interface Presenter {
         fun getNewListTask()
     }
 
-    interface Model{
+    interface Model {
         fun getNewListTask(): Flowable<Result>
     }
 

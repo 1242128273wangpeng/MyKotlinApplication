@@ -11,7 +11,7 @@ import retrofit2.http.Query
  */
 interface ApiService{
     @POST("words")
-    fun getNews(@Query("key") key:String):Flowable<Result>
+    fun getNews():Flowable<Result>
     @POST("query")
-    fun getDetailNews(@Query("q") q:String,@Query("key") key:String):Flowable<Detail>
+    fun getDetailNews(@Query("q") q:String):Flowable<Detail>
 }

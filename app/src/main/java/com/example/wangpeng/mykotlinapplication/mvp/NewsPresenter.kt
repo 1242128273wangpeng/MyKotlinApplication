@@ -17,6 +17,7 @@ class NewsPresenter constructor(val model: NewsContract.Model?, val view: NewsCo
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ res ->
                     if (res?.error == 0) {
+                        Log.i("NewsisActive:", view?.isActive().toString())
                         if (view!!.isActive()) {
                             view.showNewsList(res)
                         }

@@ -17,7 +17,8 @@ class MainActivity : AppCompatActivity() {
             mainFragment = MainFragment.newInstance()
         }
         supportFragmentManager.beginTransaction().replace(R.id.container, mainFragment).commitAllowingStateLoss()
-        mainFragment.setPresenter(NewsPresenter(NewsModel(), mainFragment))
+        presenter = NewsPresenter(NewsModel(), mainFragment)
+        mainFragment.setPresenter(presenter!!)
     }
 
     override fun onDestroy() {

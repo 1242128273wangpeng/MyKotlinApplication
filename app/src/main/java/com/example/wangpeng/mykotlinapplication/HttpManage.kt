@@ -4,7 +4,7 @@ import android.util.Log
 import android.util.Log.println
 import com.google.gson.Gson
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import okhttp3.OkHttpClient
+import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -22,11 +22,9 @@ public class HttpManage private constructor() {
     companion object {
         val APPKEY: String = "19d0a7111f4b61d4124f148dfd5a3a7f"
         val BASEURL: String = "http://op.juhe.cn/onebox/news/"
-        val INSTANCE: HttpManage = HttpManage()
-    }
-
-    fun getHttpManage(): HttpManage {
-        return INSTANCE
+        fun getHttpManage(): HttpManage {
+            return HttpManage()
+        }
     }
 
     private val okHttpClient: OkHttpClient = OkHttpClient()
@@ -37,8 +35,27 @@ public class HttpManage private constructor() {
         }).setLevel(HttpLoggingInterceptor.Level.BODY)
     }
 
-    private fun getOkHttpClient(): OkHttpClient {
-        return okHttpClient.newBuilder().addInterceptor(getHttpLoggingInterceptor())
+    private class NetInterceptor : okhttp3.Interceptor {
+        override fun intercept(chain: okhttp3.Interceptor.Chain): Response {
+            var request: Request = chain.request()
+            var builder: Request.Builder = request.newBuilder();
+            var formBody: FormBody.Builder = FormBody.Builder()
+            formBody.add("key", HttpManage.APPKEY)
+            builder.post(formBody.build())
+            var after: Request = builder.build()
+            return chain.proceed(after)
+        }
+    }
+
+    private fun getClientLoggingInterceptor(): NetInterceptor {
+        return NetInterceptor()
+    }
+
+
+    fun getOkHttpClient(): OkHttpClient {
+        return okHttpClient.newBuilder()
+                .addInterceptor(getClientLoggingInterceptor())
+                .addInterceptor(getHttpLoggingInterceptor())
                 .readTimeout(6, TimeUnit.SECONDS)
                 .writeTimeout(6, TimeUnit.SECONDS)
                 .build()
