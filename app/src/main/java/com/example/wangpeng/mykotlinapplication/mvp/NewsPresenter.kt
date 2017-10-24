@@ -23,7 +23,6 @@ class NewsPresenter constructor(val model: NewsContract.Model?, val view: NewsCo
                         res?.result.map {
                             Log.i(NewsPresenter::class.java.simpleName, "${it}")
                         }
-
                     }
                 }, { er ->
                     Log.i(NewsPresenter::class.java.simpleName, "e:" + er)
