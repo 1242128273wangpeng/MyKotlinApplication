@@ -12,13 +12,21 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        var mainFragment: MainFragment? = (supportFragmentManager.findFragmentById(R.id.contentframe)) as? MainFragment
+//        var mainFragment: MainFragment? = (supportFragmentManager.findFragmentById(R.id.contentframe)) as? MainFragment
+//        if (mainFragment == null) {
+//            mainFragment = MainFragment.newInstance()
+//        }
+//        supportFragmentManager.beginTransaction().replace(R.id.container, mainFragment).commitAllowingStateLoss()
+//        presenter = NewsPresenter(NewsModel(), mainFragment)
+//        mainFragment.setPresenter(presenter!!)
+
+        var mainFragment: Binding_MainFragment? = (supportFragmentManager.findFragmentById(R.id.contentframe)) as? Binding_MainFragment
         if (mainFragment == null) {
-            mainFragment = MainFragment.newInstance()
+            mainFragment = Binding_MainFragment.newInstance()
         }
         supportFragmentManager.beginTransaction().replace(R.id.container, mainFragment).commitAllowingStateLoss()
         presenter = NewsPresenter(NewsModel(), mainFragment)
-        mainFragment.setPresenter(presenter!!)
+        mainFragment?.setPresenter(presenter!!)
     }
 
     override fun onDestroy() {
