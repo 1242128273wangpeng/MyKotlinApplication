@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView
  */
 abstract class BaseBindingAdapter<B : ViewDataBinding> : RecyclerView.Adapter<BaseDataViewHolder<B>>() {
     var mListener: ((pos: Int) -> Unit)? = null
+
     override fun onBindViewHolder(holder: BaseDataViewHolder<B>, position: Int) {
            holder.binding.root.setOnClickListener {
                  mListener?.invoke(holder.adapterPosition)

@@ -1,6 +1,6 @@
-package com.example.wangpeng.mykotlinapplication.mvp
+package com.example.wangpeng.mykotlinapplication.mvp.news
 
-import com.example.wangpeng.mykotlinapplication.base.BasePresenter
+import com.example.wangpeng.mykotlinapplication.base.BaseMVPView
 import com.example.wangpeng.mykotlinapplication.base.BaseView
 import com.example.wangpeng.mykotlinapplication.bean.Result
 import io.reactivex.Flowable
@@ -10,7 +10,11 @@ import io.reactivex.Flowable
  */
 interface NewsContract {
 
-    interface View : BaseView<Presenter> {
+    interface SimpleView : BaseView {
+        fun showNewsList(result: Result): Unit
+    }
+
+    interface BindingMVPView : BaseView {
         fun showNewsList(result: Result): Unit
     }
 

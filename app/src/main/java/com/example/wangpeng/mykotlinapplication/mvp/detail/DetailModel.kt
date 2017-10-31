@@ -1,6 +1,5 @@
-package com.example.wangpeng.mykotlinapplication.mvp
+package com.example.wangpeng.mykotlinapplication.mvp.detail
 
-import com.example.wangpeng.mykotlinapplication.ApiService
 import com.example.wangpeng.mykotlinapplication.HttpManage
 import com.example.wangpeng.mykotlinapplication.bean.Detail
 import io.reactivex.Flowable

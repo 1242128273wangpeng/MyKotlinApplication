@@ -1,16 +1,15 @@
-package com.example.wangpeng.mykotlinapplication.mvp
+package com.example.wangpeng.mykotlinapplication.mvp.detail
 
 import com.example.wangpeng.mykotlinapplication.base.BaseView
 import com.example.wangpeng.mykotlinapplication.bean.Detail
 import io.reactivex.Flowable
-import io.reactivex.internal.operators.flowable.FlowableAll
 
 /**
  * Created by wangpeng on 2017/10/24.
  */
 interface DetailContract {
 
-    interface View : BaseView<Presenter> {
+    interface View : BaseView {
         fun displayDetail(detail: Detail)
     }
 

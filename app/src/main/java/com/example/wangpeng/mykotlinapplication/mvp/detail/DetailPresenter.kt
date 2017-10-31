@@ -1,4 +1,4 @@
-package com.example.wangpeng.mykotlinapplication.mvp
+package com.example.wangpeng.mykotlinapplication.mvp.detail
 
 import android.util.Log
 import com.example.wangpeng.mykotlinapplication.base.BasePresenter

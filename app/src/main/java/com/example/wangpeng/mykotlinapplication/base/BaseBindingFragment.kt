@@ -12,6 +12,7 @@ import android.view.ViewGroup
  */
 abstract class BaseBindingFragment<B : ViewDataBinding> : Fragment() {
     lateinit var mBinding: B
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = createDataBinding(inflater, container, savedInstanceState)
         initView()

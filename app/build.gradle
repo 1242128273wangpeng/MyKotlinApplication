@@ -28,6 +28,8 @@ android {
     }
     productFlavors {
     }
+    compileSdkVersion 25
+    buildToolsVersion '25.0.2'
 }
 
 dependencies {
