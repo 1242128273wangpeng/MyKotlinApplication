@@ -16,8 +16,16 @@ import kotlinx.android.synthetic.main.main_item.view.*
  * Created by WangPeng on 2017/10/25.
  */
 class MainAdapter(val context: Context, val result: Result) : RecyclerView.Adapter<MainAdapter.MainHolder>() {
+    private lateinit var monItemClickListener: onItemClickListener;
+
     override fun onBindViewHolder(holder: MainHolder?, position: Int) {
-        holder?.itemView?.title?.setText(result.result.get(position))
+       var item:String = result.result.get(position);
+        holder?.itemView?.title?.setText(item)
+        holder?.itemView?.setOnClickListener {
+            if(monItemClickListener!=null){
+                monItemClickListener.onItemClick(item)
+            }
+        }
     }
 
     override fun getItemCount(): Int {
@@ -35,5 +43,13 @@ class MainAdapter(val context: Context, val result: Result) : RecyclerView.Adapt
         init {
             title = itemView.findViewById(R.id.title) as? TextView
         }
+    }
+
+    fun setOnItemClickListener(_onItemClickListener:onItemClickListener){
+        monItemClickListener = _onItemClickListener
+    }
+
+    interface onItemClickListener {
+        fun onItemClick(title:String);
     }
 }

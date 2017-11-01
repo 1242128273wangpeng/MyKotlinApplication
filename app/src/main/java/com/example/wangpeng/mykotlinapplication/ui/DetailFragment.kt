@@ -1,23 +1,30 @@
 package com.example.wangpeng.mykotlinapplication.ui
 
 import android.app.ProgressDialog
-import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.wangpeng.mykotlinapplication.R
+import com.example.wangpeng.mykotlinapplication.adapter.DetailAdapter
 import com.example.wangpeng.mykotlinapplication.bean.Detail
+import com.example.wangpeng.mykotlinapplication.bean.ResultNew
 import com.example.wangpeng.mykotlinapplication.mvp.detail.DetailContract
+import com.example.wangpeng.mykotlinapplication.mvp.detail.DetailModel
 import com.example.wangpeng.mykotlinapplication.mvp.detail.DetailPresenter
 
 /**
  * Created by wangpeng on 2017/10/24.
  */
 class DetailFragment : Fragment(), DetailContract.View {
-
-    lateinit var progressDialog: ProgressDialog
+    private lateinit var mDetailList: RecyclerView
+    private var detailPresenter: DetailPresenter? = null
+    private lateinit var progressDialog: ProgressDialog
 
     companion object {
         var TITLE: String? = null
@@ -28,18 +35,16 @@ class DetailFragment : Fragment(), DetailContract.View {
             INSTANCE.arguments = bundle
             return INSTANCE;
         }
-
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        var title: String = savedInstanceState!!.getString(TITLE)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        var title: String = arguments!!.getString(TITLE)
         if (title != null) {
+            detailPresenter = DetailPresenter(DetailModel(), this)
             detailPresenter?.getItemDetail(title)
         }
     }
-
-    private var detailPresenter: DetailPresenter? = null
 
     override fun showError(message: String) {
         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
@@ -61,13 +66,22 @@ class DetailFragment : Fragment(), DetailContract.View {
         return isAdded
     }
 
-
     override fun displayDetail(detail: Detail) {
-        Toast.makeText(activity, detail.listResultNews.get(0).full_title, Toast.LENGTH_SHORT).show()
+        var detailAdapter: DetailAdapter = DetailAdapter(activity, detail)
+        detailAdapter.setOnItemClickListener(object : DetailAdapter.onItemClickListener {
+            override fun onItemClick(resultNew: ResultNew) {
+                var intent: Intent = Intent(activity, RealDetailActivity::class.java)
+                intent.putExtra(RealDetailActivity.RESULT_NEWS,resultNew)
+                startActivity(intent)
+            }
+        })
+        mDetailList.layoutManager = LinearLayoutManager(activity)
+        mDetailList.adapter = detailAdapter
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var root: View? = super.onCreateView(inflater, container, savedInstanceState)
+        var root: View? = LayoutInflater.from(activity).inflate(R.layout.fragment_detail, container, false)
+        mDetailList = root?.findViewById(R.id.detailList) as RecyclerView
         return root
     }
 

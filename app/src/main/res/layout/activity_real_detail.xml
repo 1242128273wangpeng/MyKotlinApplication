@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.example.wangpeng.mykotlinapplication.bean.ResultNew" />
+
+        <import type="android.text.Html" />
+
+        <variable
+            name="resultNews"
+            type="ResultNew" />
+
+        <variable
+            name="html"
+            type="Html" />
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/full_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:gravity="left"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@{resultNews.full_title}"
+            android:textColor="@android:color/black"
+            android:textSize="32sp"
+            tools:text="新信息新闻新信息新闻新信息新闻" />
+
+        <TextView
+            android:id="@+id/pdate_src"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/full_title"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="10dp"
+            android:text="@{resultNews.pdate_src}"
+            android:textSize="14sp"
+            tools:text="2017-09-12" />
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_below="@id/pdate_src"
+            android:layout_marginTop="20dp"
+            tools:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/img"
+            android:layout_marginTop="18dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            />
+    </RelativeLayout>
+</layout>

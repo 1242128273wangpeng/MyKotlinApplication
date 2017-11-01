@@ -1,6 +1,7 @@
 package com.example.wangpeng.mykotlinapplication.ui
 
 import android.app.ProgressDialog
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -21,9 +22,9 @@ import com.example.wangpeng.mykotlinapplication.mvp.news.NewsPresenter
  */
 class SimpleMVP_MainFragment : Fragment(), NewsContract.SimpleView {
 
-    var _mRecyclerView: RecyclerView? = null
+    lateinit var _mRecyclerView: RecyclerView
     lateinit var progressDialog: ProgressDialog
-    var _presenter: NewsContract.Presenter? = null
+    lateinit var _presenter: NewsPresenter
 
     companion object {
         fun newInstance(): SimpleMVP_MainFragment {
@@ -37,18 +38,23 @@ class SimpleMVP_MainFragment : Fragment(), NewsContract.SimpleView {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
         var root: View = inflater!!.inflate(R.layout.fragment_main, container, false)
         _mRecyclerView = root.findViewById(R.id.recycleView) as RecyclerView
-        _presenter = NewsPresenter(NewsModel(),this)
+        _presenter = NewsPresenter(NewsModel(), this)
+        _presenter?.getNewListTask()
         return root
     }
 
-    override fun onResume() {
-        super.onResume()
-        _presenter?.getNewListTask()
-    }
 
     override fun showNewsList(result: Result) {
         _mRecyclerView?.layoutManager = LinearLayoutManager(activity)
-        _mRecyclerView?.adapter = MainAdapter(activity, result)
+        var mainAdapter: MainAdapter = MainAdapter(activity, result)
+        mainAdapter.setOnItemClickListener(object : MainAdapter.onItemClickListener {
+            override fun onItemClick(title: String) {
+                var intent: Intent = Intent(activity, DetailActivity::class.java)
+                intent.putExtra(DetailActivity.TITLE, title);
+                startActivity(intent)
+            }
+        })
+        _mRecyclerView?.adapter = mainAdapter
     }
 
     override fun showLoading() {
@@ -69,6 +75,11 @@ class SimpleMVP_MainFragment : Fragment(), NewsContract.SimpleView {
 
     override fun isActive(): Boolean {
         return isAdded()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _presenter.unSubscribe()
     }
 
 }

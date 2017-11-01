@@ -8,10 +8,9 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by WangPeng on 2017/10/21.
  */
-class NewsPresenter
-constructor(val model: NewsContract.Model?, val view: NewsContract.SimpleView?)
+class NewsPresenter constructor(val model: NewsContract.Model?, val view: NewsContract.SimpleView?)
     : NewsContract.Presenter, BasePresenter() {
-        override fun getNewListTask() {
+    override fun getNewListTask() {
         addSubscription(model!!.getNewListTask()
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe {

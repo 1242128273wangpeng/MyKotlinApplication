@@ -11,11 +11,11 @@ import android.view.ViewGroup
  * Created by WangPeng on 2017/10/24.
  */
 abstract class BaseBindingFragment<B : ViewDataBinding> : Fragment() {
-    lateinit var mBinding: B
+    private lateinit var mBinding: B
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = createDataBinding(inflater, container, savedInstanceState)
-        initView()
+        initView(mBinding)
         return mBinding.root
     }
 
@@ -25,6 +25,6 @@ abstract class BaseBindingFragment<B : ViewDataBinding> : Fragment() {
 
     abstract fun createDataBinding(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): B
 
-    abstract fun initView()
+    abstract fun initView(mBinding:B)
 
 }

@@ -16,22 +16,24 @@ class MainActivity : AppCompatActivity() {
 //      databing用法
         DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
 
-//        var mainFragment: SimpleMVP_MainFragment? = (supportFragmentManager.findFragmentByTag("main")) as? SimpleMVP_MainFragment
-//        if (mainFragment == null) {
-//            mainFragment = SimpleMVP_MainFragment.newInstance()
-//        }
-//        supportFragmentManager.beginTransaction().replace(R.id.container, mainFragment, "main").commitAllowingStateLoss()
-//        presenter = NewsPresenter(NewsModel(), mainFragment)
-//        mainFragment.setPresenter(presenter!!)
+        /**
+         * MVP实现
+         */
+        var bindingmvp_mainFragment: BindingMVP_MainFragment? = (supportFragmentManager.findFragmentByTag("main")) as? BindingMVP_MainFragment
+        if (bindingmvp_mainFragment == null) {
+            bindingmvp_mainFragment = BindingMVP_MainFragment.newInstance()
+        }
+        supportFragmentManager.beginTransaction().replace(R.id.container, bindingmvp_mainFragment, "main").commitAllowingStateLoss()
+
 
         /**
          * 简单MVP实现
          */
-        var simplemvp_mainFragment: SimpleMVP_MainFragment? = (supportFragmentManager.findFragmentByTag("main")) as? SimpleMVP_MainFragment
-        if (simplemvp_mainFragment == null) {
-            simplemvp_mainFragment = SimpleMVP_MainFragment.newInstance()
-        }
-        supportFragmentManager.beginTransaction().replace(R.id.container, simplemvp_mainFragment, "main").commitAllowingStateLoss()
+//        var simplemvp_mainFragment: SimpleMVP_MainFragment? = (supportFragmentManager.findFragmentByTag("main")) as? SimpleMVP_MainFragment
+//        if (simplemvp_mainFragment == null) {
+//            simplemvp_mainFragment = SimpleMVP_MainFragment.newInstance()
+//        }
+//        supportFragmentManager.beginTransaction().replace(R.id.container, simplemvp_mainFragment, "main").commitAllowingStateLoss()
 
 
         /**
